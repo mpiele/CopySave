@@ -64,7 +64,7 @@ def startMonitoring():
 style = ttk.Style()
 style.configure("TFrame", background="#dfe3ee")
 style.configure("TLabel", background="#dfe3ee", font=("Helvetica", 12))
-style.configure("TButton", background="#4267B2", foreground="white", font=("Helvetica", 10, "bold"))
+style.configure("TButton", background="#4267B2", foreground="black", font=("Helvetica", 10, "bold"))
 style.configure("TScrollbar", background="#f0f0f0")
 
 main_frame = ttk.Frame(root, padding="10 10 10 10")
