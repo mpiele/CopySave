@@ -45,6 +45,21 @@ def update_display():
     canvas.update_idletasks()
     canvas.configure(scrollregion=canvas.bbox("all"))
 
+    # Check if the scroll region is larger than the canvas
+    bbox = canvas.bbox("all")
+    canvas_height = canvas.winfo_height()
+
+    if bbox[3] > canvas_height:
+        # Bind the mouse wheel events
+        canvas.bind_all("<MouseWheel>", on_mouse_wheel)
+        canvas.bind_all("<Button-4>", on_mouse_wheel)  # For Linux
+        canvas.bind_all("<Button-5>", on_mouse_wheel)  # For Linux
+    else:
+        # Unbind the mouse wheel events
+        canvas.unbind_all("<MouseWheel>")
+        canvas.unbind_all("<Button-4>")  # For Linux
+        canvas.unbind_all("<Button-5>")  # For Linux
+
 def addToList():
     global previous_content
 
@@ -61,10 +76,13 @@ def addToList():
 def startMonitoring():
     addToList()
 
+def on_mouse_wheel(event):
+    canvas.yview_scroll(int(-1*(event.delta/120)), "units")
+
 style = ttk.Style()
 style.configure("TFrame", background="#dfe3ee")
 style.configure("TLabel", background="#dfe3ee", font=("Helvetica", 12))
-style.configure("TButton", background="#4267B2", foreground="white", font=("Helvetica", 10, "bold"))
+style.configure("TButton", background="#4267B2", foreground="black", font=("Helvetica", 10, "bold"))
 style.configure("TScrollbar", background="#f0f0f0")
 
 main_frame = ttk.Frame(root, padding="10 10 10 10")
